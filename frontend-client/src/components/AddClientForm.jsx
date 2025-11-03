@@ -23,16 +23,16 @@ export default function AddClientForm() {
           Authorization: `Bearer ${token}`
         }
       });
-      toast.success(`✅ ${res.data.message}`);
-      setForm({ Names: '', Sex: '', Address: '', Phone: '', Email: '' }); // ✅ reset form
+      toast.success(` ${res.data.message}`);
+      setForm({ Names: '', Sex: '', Address: '', Phone: '', Email: '' }); // reset form
     } catch (err) {
       console.error('Add client error:', err);
-      toast.error(`❌ ${err.response?.data?.message || 'Error occurred'}`);
+      toast.error(` ${err.response?.data?.message || 'Error occurred'}`);
     }
   };
 
   return (
-    <div>
+    <div style={{margin:'0 600px'}}>
       <h3>Add New Client</h3>
       <form onSubmit={handleSubmit}>
         {['Names', 'Sex', 'Address', 'Phone', 'Email'].map(field => (

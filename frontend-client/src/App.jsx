@@ -18,9 +18,7 @@ export default function App() {
       <div>
         <Routes>
           {/* Landing page */}
-          <Route
-            path="/"
-            element={
+          <Route path="/" element={
               <div style={{ textAlign: 'center', marginTop: '50px' }}>
                 <h1>Welcome to Tela Tech Client Manager</h1>
                 <Link to="/login">
@@ -37,10 +35,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
 
           {/* Protected dashboard with nested routes */}
-          <Route
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-          >
+          <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} >
             <Route index element={<Overview />} />
             <Route path="add" element={<AddClientForm />} />
             <Route path="edit-delete" element={<EditDeleteClient />} />
@@ -51,11 +46,10 @@ export default function App() {
         {/* Toast notifications */}
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2500}
           hideProgressBar={false}
           newestOnTop={false}
-          closeOnClick
-          rtl={false}
+          closeOnClickrtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover

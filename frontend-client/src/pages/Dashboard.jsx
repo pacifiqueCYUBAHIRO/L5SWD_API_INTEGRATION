@@ -9,8 +9,8 @@ const navigate = useNavigate();
 
 const handleLogout = () => {
   localStorage.removeItem('auth');
-  localStorage.removeItem('token'); // remove JWT
-  navigate('/login'); // redirect to login
+  localStorage.removeItem('token');
+  navigate('/login');
 };
 
 
@@ -41,7 +41,6 @@ const handleLogout = () => {
 
           <div className="logout-link">
     <Link to="/">
-      <FaSignOutAlt style={{ marginRight: '8px' }} />
       <button onClick={handleLogout}>
   <FaSignOutAlt style={{ marginRight: '8px' }} />
   Logout
