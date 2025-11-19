@@ -27,13 +27,13 @@ export default function ClientList() {
       <table border="1">
         <thead>
           <tr>
-            <th>ID</th><th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th>
+          <th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th>
           </tr>
         </thead>
         <tbody>
           {clients.map(c => (
             <tr key={c.ID}>
-              <td>{c.ID}</td><td>{c.Names}</td><td>{c.Sex}</td><td>{c.Address}</td><td>{c.Phone}</td><td>{c.Email}</td>
+             <td>{c.Names}</td><td>{c.Sex}</td><td>{c.Address}</td><td>{c.Phone}</td><td>{c.Email}</td>
             </tr>
           ))}
         </tbody>

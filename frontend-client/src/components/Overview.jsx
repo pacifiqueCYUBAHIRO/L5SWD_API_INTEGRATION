@@ -73,13 +73,13 @@ export default function Overview() {
       <table>
         <thead>
           <tr>
-            <th>ID</th><th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th>
+            <th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th>
           </tr>
         </thead>
         <tbody>
           {clients.map(client => (
             <tr key={client.ID}>
-              <td>{client.ID}</td>
+              {/* <td>{client.ID}</td> */}
               <td>{client.Names}</td>
               <td>{client.Sex}</td>
               <td>{client.Address}</td>

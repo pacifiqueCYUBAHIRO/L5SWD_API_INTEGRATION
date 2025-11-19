@@ -15,9 +15,7 @@ export default function EditDeleteClient() {
   const refreshClients = () => {
     const token = localStorage.getItem('token');
     axios.get('http://localhost:5000/selectClients', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => setClients(res.data))
       .catch(() => toast.error('Failed to fetch clients'));
@@ -25,8 +23,8 @@ export default function EditDeleteClient() {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleEdit = client => {
-    setEditId(client.ID);
+  const handleEdit = (client) => {
+    setEditId(client._id);   // ✅ MongoDB _id
     setForm({
       Names: client.Names,
       Sex: client.Sex,
@@ -40,12 +38,11 @@ export default function EditDeleteClient() {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.put(`http://localhost:5000/updateClient/${editId}`, form, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(res.data.message);
       setEditId(null);
+      setForm({ Names: '', Sex: '', Address: '', Phone: '', Email: '' }); // reset form
       refreshClients();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Update failed');
@@ -56,15 +53,18 @@ export default function EditDeleteClient() {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.delete(`http://localhost:5000/deleteClient/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: { Authorization: `Bearer ${token}` }
       });
       toast.success(res.data.message);
       refreshClients();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Delete failed');
     }
+  };
+
+  const handleCancel = () => {
+    setEditId(null);
+    setForm({ Names: '', Sex: '', Address: '', Phone: '', Email: '' }); // reset form
   };
 
   return (
@@ -87,8 +87,8 @@ export default function EditDeleteClient() {
                 />
               ))}
               <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                <button type="submit">Update Client</button> &nbsp;
-                <button className='btn' type="button" onClick={() => setEditId(null)}>Cancel</button>
+                <button type="submit">Update Client</button>
+                <button className='btn' type="button" onClick={handleCancel}>Cancel</button>
               </div>
             </form>
           </div>
@@ -98,13 +98,13 @@ export default function EditDeleteClient() {
       <table>
         <thead>
           <tr>
-            <th>ID</th><th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th><th>Actions</th>
+            <th>Names</th><th>Sex</th><th>Address</th><th>Phone</th><th>Email</th><th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {clients.map(client => (
-            <tr key={client.ID}>
-              <td>{client.ID}</td>
+            <tr key={client._id}>
+              {/* <td>{client._id}</td> */}
               <td>{client.Names}</td>
               <td>{client.Sex}</td>
               <td>{client.Address}</td>
@@ -112,7 +112,7 @@ export default function EditDeleteClient() {
               <td>{client.Email}</td>
               <td>
                 <button onClick={() => handleEdit(client)}>Edit</button> &nbsp;
-                <button className='btn' onClick={() => handleDelete(client.ID)}>Delete</button>
+                <button className='btn' onClick={() => handleDelete(client._id)}>Delete</button>
               </td>
             </tr>
           ))}
